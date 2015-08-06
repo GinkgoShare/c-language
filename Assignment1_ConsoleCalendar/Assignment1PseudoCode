@@ -1,0 +1,71 @@
+Function: outputTableString(string1, string2)
+
+SET currentColumn to 1
+IF currentColumn is past the offset value
+  PRINT string2
+OTHERWISE
+  PRINT string1
+
+LOOP WHILE currentColumn is LESS THAN number of columns to print
+  IF currentColumn is LESS THAN the offset
+    PRINT string1 (needed to print whitespace before the offset)
+  OR IF currentColumn is ONE PAST the offset
+    IF current row is GREATER THAN 1
+      PRINT string2 middle char
+    ELSE
+      PRINT string2 first char (first row needs the corner char)
+  ELSE
+    PRINT string 2 middle char
+
+PRINT line cap (first row has the corner char and middle rows the ending char)
+PRINT carriage return
+
+Function: outputTable()
+
+SET current row to 1
+CALL outputTableString(offset array, first table array)
+CALL printRowHeight(offset array, intern array) to print the intern arrays for the row
+INCREMENT to the next row
+SUBTRACT number of boxes printed from the remaining boxes
+
+CALL outputTableString(first table array, middle table array)
+CALL printRowHeight() using the intern arrays
+INCREMENT to the next row
+SUBTRACT printed boxes from remaining boxes
+
+LOOP for middle rows while boxes to print are GREATER THAN or EQUAL to 7(days in a week)
+CALL outputTableString(middle array, middle array)
+CALL printRowHeight(intern, intern)
+INCREMENT current row
+SUBTRACT printed boxes from the remaining boxes
+LOOP
+
+SET the offset to the number of remaining boxes 
+ADD one to print past the offset for the bottom row
+
+IF remaining boxes are GREATER THAN 0
+  CALL outputTableString(middle array, last array) 
+ELSE
+  CALL outputTableString(last array, last array) // cap the table
+
+IF number of boxes are GREATER THAN 0
+  SET number of columns to print to the remaining boxes
+  CALL printRowHeight(intern, intern)
+  CALL outputTableString(last array, last array) // cap the table
+
+Function getBoxString(line, day, width)
+
+IF month is GREATER THAN 2 calculate day of year SUBTRACTING one if it is a leap year
+ELSE
+  calculate day of year without a leap
+SWITCH on the line argument
+  LINE 1 print the day
+  LINE 2 print whitespace
+  LINE 3 print the holiday string if there is one
+  LINE 4 print the word "day" if there is a holiday
+
+
+
+
+
+
